@@ -21,7 +21,7 @@ Los archivos hasta ahora son
     4. Ejercicios_semana2.md
     5. semana2.md
 3. semana3
-   1. Actividad3(en esta carpeta de encuentra todos los archivos del avance del proyecto)
+   1. Avance proyecto(en esta carpeta de encuentra todos los archivos del avance del proyecto)
       1. image.png(este es el diagrama de flujo)
       2. inventario.py
       3. reporte_proyecto.pdf
