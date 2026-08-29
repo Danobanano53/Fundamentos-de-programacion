@@ -12,7 +12,7 @@ Los archivos hasta ahora son
         2. ejemplo.py
         3. semana1.ipynb(aqui van las practicas que hacemos en clase como los extra)
         4. semana1.md
-2. semana
+2. semana2
     1. Actividad2
        1. Actividad_semana2.ipynb(aqui encontrata la actividad2 y sus extra)
     2. ejercicios_en_clase
@@ -20,3 +20,14 @@ Los archivos hasta ahora son
     3. Actividad2_cobroMuseo.md
     4. Ejercicios_semana2.md
     5. semana2.md
+3. semana3
+   1. Actividad3(en esta carpeta de encuentra todos los archivos del avance del proyecto)
+      1. image.png(este es el diagrama de flujo)
+      2. inventario.py
+      3. reporte_proyecto.pdf
+   2.Ejercicios_en_clase
+      1. ejerciciossemana3.ipynb
+   3. Actividad3_AvanceProyecto.md
+   4. Ejercicios_Extra_Semana3.md
+   5. Ejercicios_semana3.md
+   6. Semana3.md
