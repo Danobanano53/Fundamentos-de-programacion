@@ -31,3 +31,9 @@ Los archivos hasta ahora son
    4. Ejercicios_Extra_Semana3.md
    5. Ejercicios_semana3.md
    6. Semana3.md
+4. semana4
+   1. ejercicios
+      1. ejerciciosclase.ipynb
+   2. Actividad4_TablaPitagoras.md
+   3. Ejercicios_Semana4.md
+   4. Semana4.md
