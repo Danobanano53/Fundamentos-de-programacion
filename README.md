@@ -32,8 +32,11 @@ Los archivos hasta ahora son
    5. Ejercicios_semana3.md
    6. Semana3.md
 4. semana4
-   1. ejercicios
+  1. Actividad3
+      1. Extras_semana4.ipynb(aqui van los 4 ejercicios extra de la semana)
+      2. tabla_pitagoras.py(esta es la tabla de pitagioras de la act 3)
+  2. ejercicios
       1. ejerciciosclase.ipynb
-   2. Actividad4_TablaPitagoras.md
-   3. Ejercicios_Semana4.md
-   4. Semana4.md
+  3. Actividad4_TablaPitagoras.md
+  4. Ejercicios_Semana4.md
+  5. Semana4.md
