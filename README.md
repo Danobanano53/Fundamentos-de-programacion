@@ -40,3 +40,10 @@ Los archivos hasta ahora son
   3. Actividad4_TablaPitagoras.md
   4. Ejercicios_Semana4.md
   5. Semana4.md
+5. semana5
+  1. Actividad5
+  2. Ejercicios_en_clase
+     1. ejercicios_5.ipynb
+  3. Actividad5_MenuModular.md
+  4. Ejercicios_Semana5.md
+  5. Semana5.md
