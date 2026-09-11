@@ -42,6 +42,8 @@ Los archivos hasta ahora son
   5. Semana4.md
 5. semana5
   1. Actividad5
+     1. Entregables.ipynb
+     2. Menumodular.ipynb
   2. Ejercicios_en_clase
      1. ejercicios_5.ipynb
   3. Actividad5_MenuModular.md
