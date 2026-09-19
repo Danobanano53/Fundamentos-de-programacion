@@ -42,10 +42,17 @@ Los archivos hasta ahora son
   5. Semana4.md
 5. semana5
   1. Actividad5
-     1. Entregables.ipynb
+     1. Entregables.ipynb(aqui estan los ejercicios extra de castigo y los normales)
      2. Menumodular.ipynb
   2. Ejercicios_en_clase
      1. ejercicios_5.ipynb
   3. Actividad5_MenuModular.md
   4. Ejercicios_Semana5.md
   5. Semana5.md
+6. semana6
+  1. Actividad_25extras
+     1. Extras.ipynb(aqui estan los 25 ejercicios extra de csatigo)
+  2. Fotos_evidencia_certificacion(aqui estan las capturas de pantalla del curso)
+     1. examenfinal.png
+     2. insignia.png
+     3. prueba.png 
