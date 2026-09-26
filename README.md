@@ -56,3 +56,8 @@ Los archivos hasta ahora son
      1. examenfinal.png
      2. insignia.png
      3. prueba.png 
+7. semana7
+  1. Actividades en clase
+  2. Entrega proyecto(aqui se encuntran los 2 archivos del proyecto final)
+     1. inventario.py
+     2. reporte_proyecto.pdf
