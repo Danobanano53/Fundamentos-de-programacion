@@ -1,7 +1,5 @@
 import time
-import pdb
 import os
-
 
 producto1 = ""
 producto2 = ""
@@ -26,15 +24,35 @@ def crear_archivos():
 
     for nombre, contenido in archivos.items():
 
-        try:
-            with open(nombre, "w") as archivo:
-                archivo.write(contenido)
+        if not os.path.exists(nombre):
 
-        except PermissionError:
-            print("No tienes permisos para crear", nombre)
+            try:
 
-        except OSError:
-            print("Error al crear", nombre)
+                with open(nombre, "w") as archivo:
+                    archivo.write(contenido)
+
+                print("Archivo creado:", nombre)
+
+            except PermissionError:
+
+                print(
+                    "No tienes permisos para crear",
+                    nombre
+                )
+
+            except OSError:
+
+                print(
+                    "Error al crear",
+                    nombre
+                )
+
+        else:
+
+            print(
+                "Archivo existente, se conservará:",
+                nombre
+            )
 
 
 def cargar():
@@ -44,9 +62,16 @@ def cargar():
     for i in range(11):
 
         porcentaje = i * 10
-        barra = "#" * i + "-" * (10 - i)
 
-        print(f"\r[{barra}] {porcentaje}%", end="")
+        barra = (
+            "#" * i +
+            "-" * (10 - i)
+        )
+
+        print(
+            f"\r[{barra}] {porcentaje}%",
+            end=""
+        )
 
         time.sleep(0.2)
 
@@ -67,22 +92,60 @@ def capturar_fecha():
             partes = fecha.split("/")
 
             if len(partes) != 3:
-                print("Formato incorrecto.")
+
+                print(
+                    "Formato incorrecto. "
+                    "Usa dia/mes/año."
+                )
+
                 continue
 
             dia = int(partes[0])
             mes = int(partes[1])
             anio = int(partes[2])
 
+            if dia < 1 or dia > 31:
+
+                print(
+                    "El día debe estar "
+                    "entre 1 y 31."
+                )
+
+                continue
+
+            if mes < 1 or mes > 12:
+
+                print(
+                    "El mes debe estar "
+                    "entre 1 y 12."
+                )
+
+                continue
+
+            if anio < 2000 or anio > 2100:
+
+                print(
+                    "El año debe estar "
+                    "entre 2000 y 2100."
+                )
+
+                continue
+
             Fecha = dia, mes, anio
 
-            print("Fecha registrada:", Fecha)
+            print(
+                "Fecha registrada:",
+                Fecha
+            )
 
             return Fecha
 
         except ValueError:
 
-            print("Error: utiliza el formato dia/mes/año.")
+            print(
+                "Error: utiliza números "
+                "con el formato dia/mes/año."
+            )
 
 
 def guardar_archivo(nombre_archivo, texto, Fecha):
@@ -99,19 +162,192 @@ def guardar_archivo(nombre_archivo, texto, Fecha):
                 texto + "\n"
             )
 
-        print("Información guardada correctamente.")
+        print(
+            "Información guardada correctamente."
+        )
 
     except FileNotFoundError:
 
-        print("El archivo no existe.")
+        print(
+            "El archivo no existe."
+        )
 
     except PermissionError:
 
-        print("No tienes permisos para modificar el archivo.")
+        print(
+            "No tienes permisos para modificar "
+            "el archivo."
+        )
 
     except OSError:
 
-        print("Error del sistema al escribir el archivo.")
+        print(
+            "Error del sistema al escribir "
+            "el archivo."
+        )
+
+
+def guardar_productos():
+
+    try:
+
+        with open(
+            "productos.txt",
+            "w"
+        ) as archivo:
+
+            archivo.write(
+                "ARCHIVO DE PRODUCTOS\n"
+            )
+
+            archivo.write(
+                f"producto1|{producto1}|{cantidad1}\n"
+            )
+
+            archivo.write(
+                f"producto2|{producto2}|{cantidad2}\n"
+            )
+
+            archivo.write(
+                f"producto3|{producto3}|{cantidad3}\n"
+            )
+
+        print(
+            "Productos guardados correctamente."
+        )
+
+    except PermissionError:
+
+        print(
+            "No tienes permisos para guardar "
+            "los productos."
+        )
+
+    except OSError:
+
+        print(
+            "Error al guardar los productos."
+        )
+
+
+def cargar_productos():
+
+    global producto1
+    global producto2
+    global producto3
+    global cantidad1
+    global cantidad2
+    global cantidad3
+    global contador
+
+    try:
+
+        with open(
+            "productos.txt",
+            "r"
+        ) as archivo:
+
+            lineas = archivo.readlines()
+
+        productos_encontrados = 0
+
+        for linea in lineas:
+
+            linea = linea.strip()
+
+            partes = linea.split("|")
+
+            if len(partes) != 3:
+
+                continue
+
+            nombre_variable = partes[0]
+            nombre_producto = partes[1]
+            cantidad = int(partes[2])
+
+            if nombre_variable == "producto1":
+
+                producto1 = nombre_producto
+                cantidad1 = cantidad
+
+                productos_encontrados += 1
+
+            elif nombre_variable == "producto2":
+
+                producto2 = nombre_producto
+                cantidad2 = cantidad
+
+                productos_encontrados += 1
+
+            elif nombre_variable == "producto3":
+
+                producto3 = nombre_producto
+                cantidad3 = cantidad
+
+                productos_encontrados += 1
+
+        if productos_encontrados == 3:
+
+            contador = 3
+
+            print(
+                "\nProductos anteriores "
+                "cargados correctamente."
+            )
+
+            print(
+                producto1,
+                ":",
+                cantidad1
+            )
+
+            print(
+                producto2,
+                ":",
+                cantidad2
+            )
+
+            print(
+                producto3,
+                ":",
+                cantidad3
+            )
+
+            return True
+
+        else:
+
+            return False
+
+    except FileNotFoundError:
+
+        return False
+
+    except ValueError:
+
+        print(
+            "Error: los datos guardados "
+            "de los productos son incorrectos."
+        )
+
+        return False
+
+    except PermissionError:
+
+        print(
+            "No tienes permisos para leer "
+            "productos.txt."
+        )
+
+        return False
+
+    except OSError:
+
+        print(
+            "Error al leer productos.txt."
+        )
+
+        return False
 
 
 def leer_archivo():
@@ -123,27 +359,45 @@ def leer_archivo():
         "usuarios.txt"
     ]
 
-    print("\n----- ARCHIVOS DISPONIBLES -----")
+    print(
+        "\n----- ARCHIVOS DISPONIBLES -----"
+    )
 
     for i in range(len(archivos)):
 
-        print(i + 1, ".", archivos[i])
+        print(
+            i + 1,
+            ".",
+            archivos[i]
+        )
 
     try:
 
-        opcion = int(input("\nSelecciona el archivo que deseas abrir: "))
+        opcion = int(
+            input(
+                "\nSelecciona el archivo "
+                "que deseas abrir: "
+            )
+        )
 
         if opcion < 1 or opcion > len(archivos):
 
-            print("Opción no válida.")
+            print(
+                "Opción no válida."
+            )
 
             return
 
         nombre = archivos[opcion - 1]
 
-        print("\n----- CONTENIDO -----")
+        print(
+            "\n----- CONTENIDO -----"
+        )
 
-        with open(nombre, "r") as archivo:
+        with open(
+            nombre,
+            "r"
+        ) as archivo:
 
             contenido = archivo.read()
 
@@ -151,19 +405,28 @@ def leer_archivo():
 
     except ValueError:
 
-        print("Debes utilizar un número.")
+        print(
+            "Debes utilizar un número."
+        )
 
     except FileNotFoundError:
 
-        print("El archivo no existe.")
+        print(
+            "El archivo no existe."
+        )
 
     except PermissionError:
 
-        print("No tienes permisos para leer este archivo.")
+        print(
+            "No tienes permisos para "
+            "leer este archivo."
+        )
 
     except OSError:
 
-        print("Error al leer el archivo.")
+        print(
+            "Error al leer el archivo."
+        )
 
 
 def agregar_producto(Fecha):
@@ -172,21 +435,45 @@ def agregar_producto(Fecha):
     global cantidad2
     global cantidad3
 
-    print("\n----- AGREGAR PRODUCTO -----")
+    print(
+        "\n----- AGREGAR PRODUCTO -----"
+    )
 
-    print("1.", producto1)
-    print("2.", producto2)
-    print("3.", producto3)
+    print(
+        "1.",
+        producto1
+    )
+
+    print(
+        "2.",
+        producto2
+    )
+
+    print(
+        "3.",
+        producto3
+    )
 
     try:
 
-        producto = int(input("Selecciona el producto: "))
+        producto = int(
+            input(
+                "Selecciona el producto: "
+            )
+        )
 
-        cantidad = int(input("Cantidad que deseas agregar: "))
+        cantidad = int(
+            input(
+                "Cantidad que deseas agregar: "
+            )
+        )
 
         if cantidad <= 0:
 
-            print("La cantidad debe ser mayor que cero.")
+            print(
+                "La cantidad debe ser "
+                "mayor que cero."
+            )
 
             return
 
@@ -195,8 +482,9 @@ def agregar_producto(Fecha):
             cantidad1 = cantidad1 + cantidad
 
             texto = (
-                f"Se agregaron {cantidad} unidades de "
-                f"{producto1}. Inventario actual: {cantidad1}"
+                f"Se agregaron {cantidad} "
+                f"unidades de {producto1}. "
+                f"Inventario actual: {cantidad1}"
             )
 
             guardar_archivo(
@@ -210,8 +498,9 @@ def agregar_producto(Fecha):
             cantidad2 = cantidad2 + cantidad
 
             texto = (
-                f"Se agregaron {cantidad} unidades de "
-                f"{producto2}. Inventario actual: {cantidad2}"
+                f"Se agregaron {cantidad} "
+                f"unidades de {producto2}. "
+                f"Inventario actual: {cantidad2}"
             )
 
             guardar_archivo(
@@ -225,8 +514,9 @@ def agregar_producto(Fecha):
             cantidad3 = cantidad3 + cantidad
 
             texto = (
-                f"Se agregaron {cantidad} unidades de "
-                f"{producto3}. Inventario actual: {cantidad3}"
+                f"Se agregaron {cantidad} "
+                f"unidades de {producto3}. "
+                f"Inventario actual: {cantidad3}"
             )
 
             guardar_archivo(
@@ -237,11 +527,19 @@ def agregar_producto(Fecha):
 
         else:
 
-            print("Producto no válido.")
+            print(
+                "Producto no válido."
+            )
+
+            return
+
+        guardar_productos()
 
     except ValueError:
 
-        print("Debes introducir números enteros.")
+        print(
+            "Debes introducir números enteros."
+        )
 
 
 def realizar_venta(Fecha):
@@ -251,21 +549,45 @@ def realizar_venta(Fecha):
     global cantidad3
     global ventas
 
-    print("\n----- VENTA -----")
+    print(
+        "\n----- VENTA -----"
+    )
 
-    print("1.", producto1)
-    print("2.", producto2)
-    print("3.", producto3)
+    print(
+        "1.",
+        producto1
+    )
+
+    print(
+        "2.",
+        producto2
+    )
+
+    print(
+        "3.",
+        producto3
+    )
 
     try:
 
-        producto = int(input("Selecciona el producto: "))
+        producto = int(
+            input(
+                "Selecciona el producto: "
+            )
+        )
 
-        cantidad = int(input("Cantidad que deseas vender: "))
+        cantidad = int(
+            input(
+                "Cantidad que deseas vender: "
+            )
+        )
 
         if cantidad <= 0:
 
-            print("La cantidad debe ser mayor que cero.")
+            print(
+                "La cantidad debe ser "
+                "mayor que cero."
+            )
 
             return
 
@@ -277,11 +599,14 @@ def realizar_venta(Fecha):
 
                 ventas = ventas + 1
 
-                print("Venta realizada correctamente.")
+                print(
+                    "Venta realizada correctamente."
+                )
 
                 texto = (
-                    f"Venta de {cantidad} unidades de "
-                    f"{producto1}. Inventario restante: "
+                    f"Venta de {cantidad} "
+                    f"unidades de {producto1}. "
+                    f"Inventario restante: "
                     f"{cantidad1}"
                 )
 
@@ -291,9 +616,13 @@ def realizar_venta(Fecha):
                     Fecha
                 )
 
+                guardar_productos()
+
             else:
 
-                print("No hay suficiente inventario.")
+                print(
+                    "No hay suficiente inventario."
+                )
 
         elif producto == 2:
 
@@ -303,19 +632,30 @@ def realizar_venta(Fecha):
 
                 ventas = ventas + 1
 
-                print( "Venta realizada correctamente.")
+                print(
+                    "Venta realizada correctamente."
+                )
 
                 texto = (
-                    f"Venta de {cantidad} unidades de "
-                    f"{producto2}. Inventario restante: "
+                    f"Venta de {cantidad} "
+                    f"unidades de {producto2}. "
+                    f"Inventario restante: "
                     f"{cantidad2}"
                 )
 
-                guardar_archivo("ventas.txt",texto,Fecha)
+                guardar_archivo(
+                    "ventas.txt",
+                    texto,
+                    Fecha
+                )
+
+                guardar_productos()
 
             else:
 
-                print("No hay suficiente inventario.")
+                print(
+                    "No hay suficiente inventario."
+                )
 
         elif producto == 3:
 
@@ -325,41 +665,79 @@ def realizar_venta(Fecha):
 
                 ventas = ventas + 1
 
-                print("Venta realizada correctamente.")
+                print(
+                    "Venta realizada correctamente."
+                )
 
                 texto = (
-                    f"Venta de {cantidad} unidades de "
-                    f"{producto3}. Inventario restante: "
-                    f"{cantidad3}")
+                    f"Venta de {cantidad} "
+                    f"unidades de {producto3}. "
+                    f"Inventario restante: "
+                    f"{cantidad3}"
+                )
 
-                guardar_archivo("ventas.txt",texto,Fecha)
+                guardar_archivo(
+                    "ventas.txt",
+                    texto,
+                    Fecha
+                )
+
+                guardar_productos()
 
             else:
 
-                print("No hay suficiente inventario.")
+                print(
+                    "No hay suficiente inventario."
+                )
 
         else:
 
-            print("Producto no válido.")
+            print(
+                "Producto no válido."
+            )
 
     except ValueError:
 
-        print("Debes introducir números enteros.")
+        print(
+            "Debes introducir números enteros."
+        )
 
 
 def revisar_inventario():
 
-    print("----- INVENTARIO -----")
+    print(
+        "----- INVENTARIO -----"
+    )
 
-    print(producto1, ":", cantidad1)
-    print(producto2, ":", cantidad2)
-    print(producto3, ":", cantidad3)
+    print(
+        producto1,
+        ":",
+        cantidad1
+    )
+
+    print(
+        producto2,
+        ":",
+        cantidad2
+    )
+
+    print(
+        producto3,
+        ":",
+        cantidad3
+    )
 
     print()
 
-    print("Productos registrados:",contador)
+    print(
+        "Productos registrados:",
+        contador
+    )
 
-    print("Ventas realizadas:",ventas)
+    print(
+        "Ventas realizadas:",
+        ventas
+    )
 
 
 def mostrar_menu():
@@ -373,9 +751,10 @@ def mostrar_menu():
         ["6", "Salir"]
     ]
 
-    
-    print(" MENU")
-    
+    print(
+        " MENU"
+    )
+
     for fila in menu:
 
         print(
@@ -384,19 +763,30 @@ def mostrar_menu():
             fila[1]
         )
 
-    print("==============================")
+    print(
+        "=============================="
+    )
 
 
 crear_archivos()
 
 
-usuario = input("Registre su usuario o nickname: ")
+usuario = input(
+    "Registre su usuario o nickname: "
+)
 
 
+print(
+    f"Bienvenido al sistema, {usuario}."
+)
 
-print(f"Bienvenido al sistema, {usuario}.")
-print("Pinturas y Ferretería Taximaroa")
-print("================================")
+print(
+    "Pinturas y Ferretería Taximaroa"
+)
+
+print(
+    "================================"
+)
 
 
 cargar()
@@ -405,52 +795,125 @@ cargar()
 Fecha = capturar_fecha()
 
 
-print("Registra 3 productos.")
+if cargar_productos():
 
+    print(
+        "\nNo es necesario registrar "
+        "los productos nuevamente."
+    )
 
-for i in range(1, 4):
+else:
 
-    print("Producto número",i)
+    print(
+        "\nNo existen productos guardados."
+    )
 
-    try:
+    print(
+        "Registra 3 productos."
+    )
 
-        if i == 1:
-
-            producto1 = input( "Escribe el nombre del producto: ")
-
-            cantidad1 = int(input("Escribe la cantidad: "))
-
-        elif i == 2:
-
-            producto2 = input("Escribe el nombre del producto: ")
-
-            cantidad2 = int(input("Escribe la cantidad: "))
-
-        elif i == 3:
-
-            producto3 = input("Escribe el nombre del producto: ")
-
-            cantidad3 = int(input("Escribe la cantidad: "))
-
-    except ValueError:
+    for i in range(1, 4):
 
         print(
-            "La cantidad debe ser un número."
+            "Producto número",
+            i
         )
 
+        while True:
 
-contador = 3
+            try:
 
+                if i == 1:
 
-guardar_archivo(
-    "productos.txt",
-    f"Productos registrados: {producto1}, "
-    f"{producto2}, {producto3}",
-    Fecha
-)
+                    producto1 = input(
+                        "Escribe el nombre "
+                        "del producto: "
+                    )
 
+                    cantidad1 = int(
+                        input(
+                            "Escribe la cantidad: "
+                        )
+                    )
 
-print("Productos registrados correctamente.")
+                    if cantidad1 <= 0:
+
+                        print(
+                            "La cantidad debe "
+                            "ser mayor que cero."
+                        )
+
+                        continue
+
+                elif i == 2:
+
+                    producto2 = input(
+                        "Escribe el nombre "
+                        "del producto: "
+                    )
+
+                    cantidad2 = int(
+                        input(
+                            "Escribe la cantidad: "
+                        )
+                    )
+
+                    if cantidad2 <= 0:
+
+                        print(
+                            "La cantidad debe "
+                            "ser mayor que cero."
+                        )
+
+                        continue
+
+                elif i == 3:
+
+                    producto3 = input(
+                        "Escribe el nombre "
+                        "del producto: "
+                    )
+
+                    cantidad3 = int(
+                        input(
+                            "Escribe la cantidad: "
+                        )
+                    )
+
+                    if cantidad3 <= 0:
+
+                        print(
+                            "La cantidad debe "
+                            "ser mayor que cero."
+                        )
+
+                        continue
+
+                break
+
+            except ValueError:
+
+                print(
+                    "La cantidad debe "
+                    "ser un número."
+                )
+
+    contador = 3
+
+    guardar_productos()
+
+    guardar_archivo(
+        "productos.txt",
+        f"Productos registrados: "
+        f"{producto1}, "
+        f"{producto2}, "
+        f"{producto3}",
+        Fecha
+    )
+
+    print(
+        "Productos registrados correctamente."
+    )
 
 
 opcion = 0
@@ -462,14 +925,20 @@ while opcion != 6:
 
     try:
 
-        opcion = int(input("Selecciona una opción: "))
+        opcion = int(
+            input(
+                "Selecciona una opción: "
+            )
+        )
 
     except ValueError:
 
-        print("Selecciona una opción utilizando números.")
+        print(
+            "Selecciona una opción "
+            "utilizando números."
+        )
 
         continue
-
 
     if opcion == 1:
 
@@ -477,13 +946,11 @@ while opcion != 6:
 
         agregar_producto(Fecha)
 
-
     elif opcion == 2:
 
         cargar()
 
         realizar_venta(Fecha)
-
 
     elif opcion == 3:
 
@@ -491,13 +958,11 @@ while opcion != 6:
 
         revisar_inventario()
 
-
     elif opcion == 4:
 
         cargar()
 
         leer_archivo()
-
 
     elif opcion == 5:
 
@@ -517,18 +982,23 @@ while opcion != 6:
             Fecha
         )
 
-
     elif opcion == 6:
 
+        print(
+            f"Hasta luego, {usuario}."
+        )
 
-        print(f"Hasta luego, {usuario}.")
-
-        print("Ferretería y Pinturas Taximaroa")
-
+        print(
+            "Ferretería y Pinturas Taximaroa"
+        )
 
     else:
 
-        print("Opción no válida.")
+        print(
+            "Opción no válida."
+        )
 
 
-print("\nPrograma finalizado.")
+print(
+    "\nPrograma finalizado."
+)

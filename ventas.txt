@@ -1,1 +1,5 @@
 ARCHIVO DE VENTAS
+Fecha: (30, 9, 2026)
+Venta de 5 unidades de lata de pintura. Inventario restante: 45
+Fecha: (30, 9, 2026)
+Venta de 6 unidades de brocha. Inventario restante: 44

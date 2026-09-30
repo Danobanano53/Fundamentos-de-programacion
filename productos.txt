@@ -1,1 +1,4 @@
 ARCHIVO DE PRODUCTOS
+producto1|lata de pintura|45
+producto2|martillo|50
+producto3|brocha|44

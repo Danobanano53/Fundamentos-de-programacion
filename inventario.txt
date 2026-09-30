@@ -1,1 +1,3 @@
 ARCHIVO DE INVENTARIO
+Fecha: (1, 9, 2026)
+Inventario actual: lata de pintura=45, martillo=50, brocha=44. Ventas realizadas: 0
